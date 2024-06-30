@@ -7,7 +7,7 @@ test('get all categories', function () {
 
     \App\Models\Category::factory($randNumber)->create();
 
-    $response = $this->get('/api/categories');
+    $response = $this->get('/categories');
 
     $response->assertStatus(200);
 

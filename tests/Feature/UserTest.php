@@ -10,7 +10,7 @@ test('get all users with role', function () {
     ]);
     \App\Models\User::factory($randNumber)->create();
 
-    $response = $this->get('/api/users');
+    $response = $this->get('/users');
 
     $response->assertStatus(200);
 

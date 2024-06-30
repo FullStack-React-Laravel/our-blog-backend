@@ -5,7 +5,7 @@ test('get all posts with category, user, and tags', function () {
 
     \App\Models\Post::factory($randNumber)->hasTags(3)->create();
 
-    $response = $this->get('/api/posts');
+    $response = $this->get('/posts');
 
     $response->assertStatus(200);
 
