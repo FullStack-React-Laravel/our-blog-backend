@@ -28,7 +28,7 @@ class RegisteredUserController extends Controller
         ]);
 
         if ($validated->fails()) {
-            return response()->json($validated->failed());
+            return response()->json($validated->messages(), 422);
         }
 
         $user = User::create([
