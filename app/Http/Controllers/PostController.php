@@ -4,16 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Http\Resources\PostResource;
 use App\Models\Post;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): \Illuminate\Http\JsonResponse
+    public function index(Request $request): AnonymousResourceCollection
     {
-        return response()->json(Post::with(['user', 'category', 'tags'])->get());
+        return PostResource::collection(Post::all()->makeHidden(['content']));
     }
 
     /**
@@ -35,9 +39,15 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show($slug): PostResource|JsonResponse
     {
-        //
+        $post = Post::all()->where('slug', $slug)->first();
+
+        if (!$post) {
+            return response()->json(["message" => "Not found"], 404);
+        }
+
+        return new PostResource($post->makeHidden(['excerpt']));
     }
 
     /**
