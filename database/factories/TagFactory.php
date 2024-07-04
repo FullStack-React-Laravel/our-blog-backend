@@ -17,7 +17,7 @@ class TagFactory extends Factory
      */
     public function definition(): array
     {
-        $name = join(" ", fake()->unique()->words(fake()->numberBetween(1, 3)));
+        $name = rtrim(fake()->unique()->text(8), '.');
 
         return [
             'name' => $name,

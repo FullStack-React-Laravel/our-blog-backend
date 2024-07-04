@@ -58,7 +58,7 @@ class User extends Authenticatable
 
     protected function setUsername()
     {
-        return '@' . explode('@', $this->email)[0] . '-' . str()->random(5);
+        return explode('@', $this->email)[0] . '-' . str()->random(5);
     }
 
     public function role(): BelongsTo

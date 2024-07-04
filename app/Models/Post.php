@@ -35,10 +35,11 @@ class Post extends Model
 
     public function getSlug(): string
     {
+        $max_char = 20;
         $slug = Str::slug($this->title);
 
-        if (strlen($slug) > 10) {
-            $position = Str::position($slug, '-', 20);
+        if (strlen($slug) > $max_char) {
+            $position = Str::position($slug, '-', $max_char);
 
             if ($position) {
                 $slug = Str::substr($slug, 0, $position);
