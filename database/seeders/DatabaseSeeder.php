@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Post;
+use App\Models\Reaction;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -19,7 +21,7 @@ class DatabaseSeeder extends Seeder
     {
         Category::factory()->count(20)->create();
 
-        User::factory()->hasPosts(10)->create([
+        User::factory()->hasPosts(10)->hasComments(3)->hasReactions(3)->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
             'role_id' => 1,
@@ -34,5 +36,14 @@ class DatabaseSeeder extends Seeder
                 )->pluck('id')->toArray()
             );
         });
+
+        Comment::all()->each(function (Comment $comment){
+           if($comment->id === 3){
+               $comment->parent_id = 1 ;
+               $comment->save();
+               dump($comment->parent_id);
+           }
+        });
+
     }
 }

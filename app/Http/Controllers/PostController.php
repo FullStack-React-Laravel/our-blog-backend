@@ -15,7 +15,7 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(): AnonymousResourceCollection
     {
         return PostResource::collection(Post::all()->makeHidden(['content']));
     }

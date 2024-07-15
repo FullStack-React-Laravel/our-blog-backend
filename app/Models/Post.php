@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
+use Laravel\Scout\Searchable;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $fillable = [
         'title',
@@ -25,6 +26,17 @@ class Post extends Model
         'category',
         'tags'
     ];
+
+    public function searchableAs():string{
+        return 'posts_index';
+    }
+//    public function toSearchableArray()
+//    {
+//        return [
+//            'title' => $this->title,
+//        ];
+//    }
+
 
     public function __construct(array $attributes = [])
     {
@@ -62,5 +74,13 @@ class Post extends Model
     public function tags(): BelongsToMany
     {
         return $this->BelongsToMany(Tag::class);
+    }
+
+    public function reactions(){
+        return $this->morphMany('App\Models\Reaction' , 'reactionable');
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
     }
 }

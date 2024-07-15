@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,22 +17,20 @@ class PostResource extends JsonResource
     {
         $hidden = $this->getHidden();
 
+        $post_dt = new Carbon($this->created_at);
+        $since = $post_dt->diffForHumans(Carbon::now());
+        $since = str_replace('before' , 'ago' , $since);
+
+
+
         $data = [
             "slug" => $this->slug,
             "title" => $this->title,
             "attachment" => $this->attachment,
-            "created_at" => $this->created_at,
-            "updated_at" => $this->updated_at,
-            "user" => [
-                "username" => $this->user->username,
-                "name" => $this->user->name,
-                "avatar" => $this->user->avatar,
-                "role" => $this->user->role->name
-            ],
-            "category" => [
-                "name" => $this->category->name,
-                "slug" => $this->category->slug
-            ],
+            "user" => UserResource::make($this->user),
+            "category" => CategoryResource::make($this->category),
+            "comments" => CommentResource::collection($this->comments),
+            "since" => $since,
             "tags" => $this->tags->select(['name', 'slug', 'color'])
         ];
 
