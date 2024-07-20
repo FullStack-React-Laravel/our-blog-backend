@@ -20,7 +20,7 @@ trait HasSearch
     public function search(Request $request): array|Collection|AnonymousResourceCollection|JsonResponse
     {
         $validated = Validator::make($request->all(), [
-            'search' => ['required', 'string', 'max:255'],
+            'query' => ['required', 'string', 'max:255'],
         ]);
 
         if ($validated->fails()) {
