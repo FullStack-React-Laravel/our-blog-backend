@@ -13,6 +13,8 @@ class LatestPosts extends Controller
      */
     public function __invoke(Request $request)
     {
-        return PostResource::collection(Post::all()->take(3)->makeHidden(['content']));
+        return PostResource::collection(
+            Post::query()->latest()->take(3)->get()->makeHidden(['content'])
+        );
     }
 }

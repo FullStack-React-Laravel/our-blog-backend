@@ -27,7 +27,9 @@ class PostController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        return PostResource::collection(Post::all()->makeVisible(['excerpt']));
+        return PostResource::collection(
+            Post::query()->latest()->get()->makeVisible(['excerpt'])
+        );
     }
 
     /**
