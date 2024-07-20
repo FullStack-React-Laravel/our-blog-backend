@@ -4,9 +4,11 @@ namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Validator;
 
 trait HasSearch
 {
@@ -15,13 +17,20 @@ trait HasSearch
     protected string|JsonResource $resource_callback = '';
     protected array $makeHidden;
 
-    public function search(Request $request): Collection|AnonymousResourceCollection|array
+    public function search(Request $request): array|Collection|AnonymousResourceCollection|JsonResponse
     {
+        $validated = Validator::make($request->all(), [
+            'search' => ['required', 'string', 'max:255'],
+        ]);
+
+        if ($validated->fails()) {
+            return response()->json($validated->messages(), 422);
+        }
+
         $query = $request->get('query');
 
         $result = $this->makeSearch($query);
 
-//        $result->makeVisible("excerpt");
         $result->makeHidden($this->makeHidden);
 
         return $this->resource($result);
