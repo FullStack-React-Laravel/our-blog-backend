@@ -5,6 +5,9 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @method getHidden()
+ */
 class PostResource extends JsonResource
 {
     /**
@@ -17,30 +20,20 @@ class PostResource extends JsonResource
         $hidden = $this->getHidden();
 
         $data = [
-            "slug" => $this->slug,
-            "title" => $this->title,
-            "attachment" => $this->attachment,
-            "created_at" => $this->created_at,
-            "updated_at" => $this->updated_at,
-            "user" => [
-                "username" => $this->user->username,
-                "name" => $this->user->name,
-                "avatar" => $this->user->avatar,
-                "role" => $this->user->role->name
-            ],
-            "category" => [
-                "name" => $this->category->name,
-                "slug" => $this->category->slug
-            ],
-            "tags" => $this->tags->select(['name', 'slug', 'color'])
+            'slug' => $this->slug,
+            'title' => $this->title,
+            'attachment' => $this->attachment,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'user' => UserResource::make($this->user),
+            'category' => CategoryResource::make($this->category),
+            'tags' => TagResource::collection($this->tags)
         ];
 
-        if (!in_array('content', $hidden)) {
-            $data["content"] = $this->content;
-        }
-
-        if (!in_array('excerpt', $hidden)) {
-            $data["excerpt"] = $this->excerpt;
+        foreach (['content', 'excerpt'] as $item) {
+            if (!in_array($item, $hidden)) {
+                $data[$item] = $this->$item;
+            }
         }
 
         return $data;

@@ -6,18 +6,28 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
+use App\Traits\HasSearch;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PostController extends Controller
 {
+    use HasSearch;
+
+    public function __construct()
+    {
+        $this->model = Post::class;
+        $this->resource_callback = PostResource::class;
+        $this->searchable = ['title', 'excerpt'];
+        $this->makeHidden = ['content'];
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(): AnonymousResourceCollection
     {
-        return PostResource::collection(Post::all()->makeHidden(['content']));
+        return PostResource::collection(Post::all()->makeVisible(['excerpt']));
     }
 
     /**
@@ -44,10 +54,10 @@ class PostController extends Controller
         $post = Post::all()->where('slug', $slug)->first();
 
         if (!$post) {
-            return response()->json(["message" => "Not found"], 404);
+            return response()->json(['message' => 'Not found'], 404);
         }
 
-        return new PostResource($post->makeHidden(['excerpt']));
+        return PostResource::make($post->makeHidden(['excerpt']));
     }
 
     /**

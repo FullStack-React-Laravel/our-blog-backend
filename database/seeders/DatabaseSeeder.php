@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Role;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -19,10 +20,8 @@ class DatabaseSeeder extends Seeder
     {
         Category::factory()->count(20)->create();
 
-        User::factory()->hasPosts(10)->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'role_id' => 1,
+        User::factory(3)->hasPosts(10)->create([
+            'role_id' => Role::where('name', 'admin')->value('id'),
         ]);
 
         $tags = Tag::factory()->count(20)->create();
