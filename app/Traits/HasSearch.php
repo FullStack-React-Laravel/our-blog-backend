@@ -45,7 +45,7 @@ trait HasSearch
                 $searchable, 'like', "%$search_text%");
         }
 
-        return $query->get();
+        return $query->latest()->get();
     }
 
     private function resource(Collection|array $data): Collection|AnonymousResourceCollection|array
