@@ -77,7 +77,7 @@ return [
     'middleware' => [
         'web',
 //        'admin',
-        AuthorizeLogViewer::class,
+//        AuthorizeLogViewer::class,
     ],
 
     /*
