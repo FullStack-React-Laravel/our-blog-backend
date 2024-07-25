@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Our Blog Api</title>
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="{{asset('public/css/style.css')}}"/>
 </head>
 <body class="min-h-screen flex flex-col bg-gray-800">
 
@@ -38,7 +38,7 @@
 
         <a href="/log-viewer"
            class="text-center flex flex-col items-center border-2 bg-gray-900 px-2 py-2 rounded-lg border-violet-950">
-            <img src="/vendor/log-viewer/img/log-viewer-32.png" alt="log-viewer"/>
+            <img src="{{assert('public/vendor/log-viewer/img/log-viewer-32.png')}}" alt="log-viewer"/>
 
             <span class="ml-2 text-lg sm:text-2xl text-gray-700 dark:text-gray-300 font-medium">
             Log Viewer
