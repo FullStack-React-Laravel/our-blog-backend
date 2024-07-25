@@ -7,9 +7,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return ['Laravel' => app()->version()];
-});
+Route::view('/', 'Home');
 
 Route::get('/posts/latest', LatestPosts::class);
 Route::get('/posts/search', [PostController::class, 'search']);
