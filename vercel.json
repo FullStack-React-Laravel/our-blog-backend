@@ -14,8 +14,8 @@
             "dest": "/build/$1"
         },
         {
-            "src": "/public/(.*)",
-            "dest": "/public/$1"
+            "src": "(.*).(.*)",
+            "dest": "/public/$1.$2"
         },
         {
             "src": "/(.*)",
