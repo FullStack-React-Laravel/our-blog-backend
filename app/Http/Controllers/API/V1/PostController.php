@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\API\V1;
 
-use App\Http\Requests\StorePostRequest;
-use App\Http\Requests\UpdatePostRequest;
+use App\Http\Requests\API\V1\StorePostRequest;
+use App\Http\Requests\API\V1\UpdatePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Traits\HasSearch;

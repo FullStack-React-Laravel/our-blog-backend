@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\API\V1;
 
-use App\Http\Requests\StoreTagRequest;
-use App\Http\Requests\UpdateTagRequest;
+use App\Http\Requests\API\V1\StoreTagRequest;
+use App\Http\Requests\API\V1\UpdateTagRequest;
 use App\Models\Tag;
 
 class TagController extends Controller
