@@ -22,6 +22,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
         ]);
 
+
+        // allowing SPA authenticate with using session cookies while allowing third party applications (like mobile apps) to authenticate with api tokens
         $middleware->statefulApi();
 
         //
