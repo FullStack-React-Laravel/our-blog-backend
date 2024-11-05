@@ -1,11 +1,11 @@
 <?php
 require __DIR__ . '/auth.php';
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\LatestPosts;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\TagController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\API\V1\CategoryController;
+use App\Http\Controllers\API\V1\LatestPosts;
+use App\Http\Controllers\API\V1\PostController;
+use App\Http\Controllers\API\V1\TagController;
+use App\Http\Controllers\API\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
