@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Requests\API\V1\StorePostRequest;
 use App\Http\Requests\API\V1\UpdatePostRequest;
-use App\Http\Resources\PostResource;
+use App\Http\Resources\API\V1\PostResource;
 use App\Models\Post;
 use App\Traits\HasSearch;
 use Illuminate\Http\JsonResponse;
