@@ -11,4 +11,16 @@ class UserController extends Controller
     {
         return response()->json(User::with('role')->get());
     }
+
+    /**
+     * return the current authenticated user
+     */
+    public function authUser()
+    {
+        return response()->json([
+            'name' => auth()->user()->name,
+            'username' => auth()->user()->username,
+            'role' => auth()->user()->role
+        ]);
+    }
 }

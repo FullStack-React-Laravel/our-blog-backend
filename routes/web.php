@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/auth.php';
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LatestPosts;
@@ -19,5 +20,4 @@ Route::resource('/categories', CategoryController::class);
 Route::resource('/tags', TagController::class);
 Route::resource('/posts', PostController::class);
 
-
-require __DIR__.'/auth.php';
+Route::get('/auth/user', [UserController::class, 'authUser'])->middleware('auth:sanctum');
