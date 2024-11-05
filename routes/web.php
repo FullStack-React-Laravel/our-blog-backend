@@ -12,12 +12,13 @@ Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
 
-Route::get('/posts/latest', LatestPosts::class);
-Route::get('/posts/search', [PostController::class, 'search']);
+Route::group(['prefix' => 'api/v1'], function () {
+    Route::get('/posts/latest', LatestPosts::class);
+    Route::get('/posts/search', [PostController::class, 'search']);
 
-Route::resource('/users', UserController::class);
-Route::resource('/categories', CategoryController::class);
-Route::resource('/tags', TagController::class);
-Route::resource('/posts', PostController::class);
-
-Route::get('/auth/user', [UserController::class, 'authUser'])->middleware('auth:sanctum');
+    Route::resource('/users', UserController::class);
+    Route::resource('/categories', CategoryController::class);
+    Route::resource('/tags', TagController::class);
+    Route::resource('/posts', PostController::class);
+    Route::get('/auth/user', [UserController::class, 'authUser'])->middleware('auth:sanctum');
+});
