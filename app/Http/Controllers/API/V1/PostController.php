@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\StorePostRequest;
 use App\Http\Requests\API\V1\UpdatePostRequest;
+use App\Http\Resources\API\V1\PostCollection;
 use App\Http\Resources\API\V1\PostResource;
 use App\Models\Post;
 use App\Traits\HasSearch;
@@ -26,20 +27,18 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): AnonymousResourceCollection
+    public function index()
     {
-        return PostResource::collection(
-            Post::query()->latest()->get()->makeVisible(['excerpt'])
-        );
+        // return PostResource::collection(
+        //     Post::query()->latest()->get()->makeVisible(['excerpt'])
+        // );
+        return (new PostCollection(
+            Post::latest()
+                ->paginate(3)
+        ))->response()->setStatusCode(200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -52,24 +51,11 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($slug): PostResource|JsonResponse
+    public function show(Post $post): PostResource|JsonResponse
     {
-        $post = Post::all()->where('slug', $slug)->first();
-
-        if (!$post) {
-            return response()->json(['message' => 'Not found'], 404);
-        }
-
         return PostResource::make($post->makeHidden(['excerpt']));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Post $post)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
