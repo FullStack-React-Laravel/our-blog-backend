@@ -27,7 +27,7 @@ class AuthenticatedSessionController extends Controller
                 'username' => auth()->user()->name,
                 'token' => null // this will be usefull if every user has an api token so that for each request that usr make we should authorize the request with his token
             ]
-        ]);
+        ], 204);
     }
 
     /**
@@ -44,6 +44,6 @@ class AuthenticatedSessionController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'user has logged out successfully'
-        ]);
+        ], 204);
     }
 }
