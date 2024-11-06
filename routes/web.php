@@ -19,6 +19,6 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::resource('/users', UserController::class);
     Route::resource('/categories', CategoryController::class);
     Route::resource('/tags', TagController::class);
-    Route::resource('/posts', PostController::class);
+    Route::apiResource('/posts', PostController::class);
     Route::get('/auth/user', [UserController::class, 'authUser'])->middleware('auth:sanctum');
 });
