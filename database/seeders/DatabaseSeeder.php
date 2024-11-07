@@ -20,6 +20,13 @@ class DatabaseSeeder extends Seeder
     {
         Category::factory()->count(20)->create();
 
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
+            'password' => '000',
+            'username' => 'admin',
+        ]);
+
         User::factory(3)->hasPosts(10)->create([
             'role_id' => Role::where('name', 'admin')->value('id'),
         ]);
