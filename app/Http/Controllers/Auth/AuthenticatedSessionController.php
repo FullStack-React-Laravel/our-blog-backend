@@ -19,15 +19,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'user logged in successfully',
-            'data'    => [
-                'name' => auth()->user()->name,
-                'username' => auth()->user()->name,
-                'token' => null // this will be usefull if every user has an api token so that for each request that usr make we should authorize the request with his token
-            ]
-        ], 204);
+        return response()->noContent();
     }
 
     /**
@@ -41,9 +33,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'user has logged out successfully'
-        ], 204);
+        return response()->noContent();
     }
 }
