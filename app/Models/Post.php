@@ -17,7 +17,9 @@ class Post extends Model
         'attachment',
         'excerpt',
         'content',
-        'slug'
+        'slug',
+        'user_id',
+        'category_id',
     ];
 
     protected $with = [

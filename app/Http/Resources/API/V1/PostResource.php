@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\API\V1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -23,11 +23,6 @@ class PostResource extends JsonResource
             'slug' => $this->slug,
             'title' => $this->title,
             'attachment' => $this->attachment,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'user' => UserResource::make($this->user),
-            'category' => CategoryResource::make($this->category),
-            'tags' => TagResource::collection($this->tags)
         ];
 
         foreach (['content', 'excerpt'] as $item) {
@@ -35,6 +30,17 @@ class PostResource extends JsonResource
                 $data[$item] = $this->$item;
             }
         }
+
+        $data['timestamps'] = [
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+
+        $data['relations'] = [
+            'user' => UserResource::make($this->user),
+            'category' => CategoryResource::make($this->category),
+            'tags' => TagResource::collection($this->tags),
+        ];
 
         return $data;
     }

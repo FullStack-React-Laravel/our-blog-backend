@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\V1;
 
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\API\V1\StoreCategoryRequest;
+use App\Http\Requests\API\V1\UpdateCategoryRequest;
 use App\Models\Category;
 
 class CategoryController extends Controller

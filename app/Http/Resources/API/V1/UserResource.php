@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\API\V1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TagResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,9 @@ class TagResource extends JsonResource
     {
         return [
             'name' => $this->name,
-            'slug' => $this->slug,
-            'color' => $this->color
+            'username' => $this->username,
+            'avatar' => $this->avatar,
+            'role' => $this->whenLoaded('role', fn() => $this->role->name)
         ];
     }
 }

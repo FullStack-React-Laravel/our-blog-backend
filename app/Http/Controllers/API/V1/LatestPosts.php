@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\V1;
 
-use App\Http\Resources\PostResource;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\API\V1\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
