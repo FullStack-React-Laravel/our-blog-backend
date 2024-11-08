@@ -9,12 +9,16 @@ use App\Http\Resources\API\V1\PostCollection;
 use App\Http\Resources\API\V1\PostResource;
 use App\Models\Post;
 use App\Traits\HasSearch;
+use App\Traits\ResponseHandler;
+use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+
 
 class PostController extends Controller
 {
-    use HasSearch;
+    use HasSearch, ResponseHandler;
 
     public function __construct()
     {
@@ -43,9 +47,11 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePostRequest $request)
+    public function store(StorePostRequest  $request)
     {
-        //
+        $request->validated();
+        return Post::create($request->toArray()) ? $this->responseSuccess('new post has been added successfully', 201)
+            : $this->responseFailure('somthing went wrong', 'unKnown', 200);
     }
 
     /**
@@ -62,7 +68,9 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $request->validated();
+        return $post->update($request->toArray()) ?
+            $this->responseSuccess('post has been updated', 200) : $this->responseFailure('somthing went wrong','unknown', 500);
     }
 
     /**
@@ -70,6 +78,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return response()->noContent();
     }
 }
