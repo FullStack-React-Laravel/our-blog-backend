@@ -23,8 +23,6 @@ class PostResource extends JsonResource
             'slug' => $this->slug,
             'title' => $this->title,
             'attachment' => $this->attachment,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ];
 
         foreach (['content', 'excerpt'] as $item) {
@@ -32,6 +30,11 @@ class PostResource extends JsonResource
                 $data[$item] = $this->$item;
             }
         }
+
+        $data['timestamps'] = [
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
 
         $data['relations'] = [
             'user' => UserResource::make($this->user),
