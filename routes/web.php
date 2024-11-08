@@ -12,7 +12,7 @@ Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
 
-Route::group(['prefix' => 'api/v1'], function () {
+Route::group(['prefix' => '/v1'], function () {
     Route::get('/posts/latest', LatestPosts::class);
     Route::get('/posts/search', [PostController::class, 'search']);
 
